@@ -34,6 +34,6 @@ earth = sphere( pos = vec( 0,0,0) ,
 
 for i in range(0, N):
     for j in range(0, N):
-        ar = arrow(pos = vec( pos_x[i,j], pos_y[i,j], 0), axis =vec( 10000, 10000, 0),
+        ar = arrow(pos = vec( pos_x[i,j], pos_y[i,j], 0), axis =vec( 1E6, -1E6, 0),
          shaftwidth = 1E5, color=color.red)
 
