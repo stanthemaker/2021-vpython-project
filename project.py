@@ -4,7 +4,12 @@ B_ground = 45*10**(-3)
 u0 = 4*pi*10**(-7)
 R_earth = 6371*10**3
 i_earth = 4*(2**0.5)*B_ground*R_earth/u0
-h , N , k= 1E-2 , 50, 1E6
+h , N , k= 1E-2 ,50, 1E6
+n=250
+theta=array([2*pi*i/n for i in range(n)])
+L_ds=2*pi*R_earth /n 
+L_ds_vec =[vec(L_ds*sin(theta[i]),L_ds*cos(theta[i]),0) for i in range(n)]
+L_ds_pos=[vec(cos(theta[i])*R_earth,sin(theta[i])*R_earth,0) for i in range(n)]
 
 
 scene = canvas(title='magnetic field of earth ', height=1000, width=1000, center = vec(0 , 0 , 0))
@@ -20,12 +25,21 @@ pos -= (N*k/2)
 pos_x = pos[0]
 pos_y = pos[1]
 
-print (pos_x)
-print (pos_y)
-# input()
+# print (pos_x)
+# print (pos_y)
 
 earth = sphere( pos = vec( 0,0,0) , 
     radius = R_earth , texture={'file':textures.earth}) # earth_orbit['r']??
+
+def BiotSavart(i,ds_vec,vec_r):
+    return u0 * i_earth * ds_vec.cross(vec_r.norm())/(vec_r.mag**2 * 4*pi)
+
+def mag_field_at_p(p,s_pos,s_vec,i):
+    B=vec(0,0,0)
+    for k in range(n):
+        r = p - s_pos[k] 
+        B += BiotSavart(i,s_vec[k],r)
+    return B
 
 # for i in range(N):
 # 	for j in range(N):
@@ -34,6 +48,13 @@ earth = sphere( pos = vec( 0,0,0) ,
 
 for i in range(0, N):
     for j in range(0, N):
-        ar = arrow(pos = vec( pos_x[i,j], pos_y[i,j], 0), axis =vec( 1E6, -1E6, 0),
-         shaftwidth = 1E5, color=color.red)
+        p = vec(pos_x[i,j],pos_y[i,j],0)
+        if (p.x ** 2 + p.y **2 <= (R_earth+1000) **2 ):
+            print( "in if")
+            continue
+        B = mag_field_at_p(p,L_ds_pos,L_ds_vec,R_earth )
+        ar = arrow(pos = vec( pos_x[i,j], pos_y[i,j], 0), axis = 1E6 * B, 
+        shaftwidth = 0.1* mag(1E6 * B), color=color.red)
+        print("B = ", 1E7 * B)
+        print("B.mag = ",0.1* mag(1E7 * B))
 
