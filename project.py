@@ -12,11 +12,6 @@ V_wind = vec(4.5E5,0,0)
 Q_electric = -1.602 * 1E-19 * 1E20
 h , N , k , n = 1E-2 ,30, 1E6 , 100
  
-
-# theta=array([2*pi*i/n for i in range(n)])
-# L_ds=2*pi*R_earth_core /n 
-# L_ds_vec =[vec(L_ds*sin(theta[i]),0,L_ds*cos(theta[i])) for i in range(n)]
-# L_ds_pos=[R_earth_core * vec(cos(theta[i]),0,sin(theta[i])) for i in range(n)]
 particles, particles_v = [],[]
 scene = canvas(title='magnetic field of earth ', height=1000, width=1000, center = vec(0 , 0 , 0))
 scene.lights = []
@@ -31,8 +26,6 @@ pos -= (N*k/2)
 pos_x = pos[0]
 pos_y = pos[1]
 
-# print (pos_x)
-# print (pos_y)
 
 earth = sphere( pos = vec( 0,0,0) , canvas = scene,
     radius = R_earth , texture={'file':textures.earth}) # earth_orbit['r']??
@@ -45,9 +38,6 @@ for j in range (n):
 def B_by_solar_wind(p):
     B , E = vec(0,0,0) , vec(0,0,0)
     for i in range (n):
-        # theta = acos (dot(V_wind,p - particles[i].pos) / V_wind.mag / (p-particles[i].pos).mag)
-        # E = Q_electric * (1-V_wind.mag**2/c**2) * (p-particles[i].pos) \
-        # / (4*pi*e0) / (1-V_wind.mag**2 * sin(theta)**2 / c**2 )**1.5 /mag(p-particles[i].pos)**3
         Bi = mu0 * Q_electric * V_wind.cross( (p-particles[i].pos) )  \
             / (4*pi*e0) / mag(p-particles[i].pos)**3
         # B += V_wind.cross(Bi/c**2)
@@ -62,8 +52,6 @@ def mag_field_at_p(p):
     print ("B by wind = ", B)
     c = mu0/(4*pi*(p.x**2.0+p.y**2.0+p.z**2.0)**1.5)
     print("B by earth = ", c*(3*(dot(vec(0,mu,0),norm(p))) * norm(p) - vec(0,mu,0)))
-    # input()
-    #1233213
     B += c*(3*(dot(vec(0,mu,0),norm(p))) * norm(p) - vec(0,mu,0))
 
     return B
