@@ -1,3 +1,4 @@
+## this project is too hard
 from numpy import * 
 from vpython import *
 import numpy as np
