@@ -63,6 +63,7 @@ def mag_field_at_p(p):
     c = mu0/(4*pi*(p.x**2.0+p.y**2.0+p.z**2.0)**1.5)
     print("B by earth = ", c*(3*(dot(vec(0,mu,0),norm(p))) * norm(p) - vec(0,mu,0)))
     # input()
+    #1233213
     B += c*(3*(dot(vec(0,mu,0),norm(p))) * norm(p) - vec(0,mu,0))
 
     return B
