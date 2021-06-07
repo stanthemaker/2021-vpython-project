@@ -1,3 +1,4 @@
+##aurora project
 from numpy import * 
 from vpython import *
 import numpy as np
@@ -25,7 +26,6 @@ for i in range(0,N):
 pos -= (N*k/2)
 pos_x = pos[0]
 pos_y = pos[1]
-
 
 earth = sphere( pos = vec( 0,0,0) , canvas = scene,
     radius = R_earth , texture={'file':textures.earth}) # earth_orbit['r']??
