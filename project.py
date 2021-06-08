@@ -56,7 +56,7 @@ print("D = ",D)
 print("R = ",points[D].pos.mag)
 print("B naer earth = ", mag_field_at_p(points[D].pos))
 ##done test
-
+#123
 for i in range (M):
     B = mag_field_at_p(points[i].pos)
     ar = arrow(pos = points[i].pos , axis =  B * 1E10, 
