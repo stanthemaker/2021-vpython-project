@@ -7,7 +7,7 @@ c = 299792458
 B_ground = 45*1E-3
 mu0 = 4*pi* 1E-7
 e0 = 1/(c**2 * mu0)
-R_earth,R_earth_core = 6371*1E3, 1220 * 1E3
+R_earth, R_earth_core = 6371*1E3, 600 * 1E3
 mu = B_ground* 2 *pi * (2*R_earth_core**2)**1.5 / mu0
 Q_electric, M_proton = 1.602 * 1E-19  , 1.672 * 1E-27
 n = 30
@@ -55,17 +55,18 @@ for i in range (M):
 
 print("R = ",points[h].pos.mag)
 print("B naer earth = ", mag_field_at_p(points[h].pos))
+input()
 ##done test
 
 for i in range (M):
     B = mag_field_at_p(points[i].pos)
-    ar = arrow(pos = points[i].pos , axis =  B * 1E10, 
+    ar = arrow(pos = points[i].pos , axis =  B * 1E11, 
     shaftwidth = 4E4, color=color.red)
     if (ar.pos.z != 0):
         ar.visible = False
-dt = 1E-3
+dt = 5E-3
 while True:
-    rate (200)
+    rate (700)
     for i in range (n) :
         particles[i].pos += particles[i].v * dt
         a = F_on_particles(particles[i].pos, particles[i].v) / M_proton
