@@ -32,9 +32,9 @@ def F_on_particles(pos,v):
     return F
 loss = 0
 for i in range (n):
-    particle = sphere(canvas=scene , pos = vec (-5E7 ,-30E6 + i * 2E6,0), 
+    particle = sphere(canvas=scene , pos = vec (-5E7 ,-45E6 + i * 3E6,0), 
     radius = 3E5 , color = color.blue)
-    particle.v = vec(random.randint(2E5, 8E5),0,0) # V_wind between 2E5 ~ 8E5
+    particle.v = vec(random.randint(500,900),random.randint(500,900),0) # V_wind between 2E5 ~ 8E5
     particles.append(particle)
     for j in range (n):
         for  k in range (n):
@@ -55,7 +55,6 @@ for i in range (M):
 
 print("R = ",points[h].pos.mag)
 print("B naer earth = ", mag_field_at_p(points[h].pos))
-input()
 ##done test
 
 for i in range (M):
